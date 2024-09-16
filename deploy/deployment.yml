@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cicd-demo
+  namespace: demo
+spec:
+  selector:
+    matchLabels:
+      app: cicd-demo
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        app: cicd-demo
+    spec:
+      containers:
+        - image: {여기에 본인의 docker hub id를 적으세요}/cicd-demo:latest
+          name: cicd-demo
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1024Mi
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /ready
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /health
+            initialDelaySeconds: 130
+            timeoutSeconds: 10
+            failureThreshold: 10
