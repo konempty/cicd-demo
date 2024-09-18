@@ -1,7 +1,7 @@
 import org.jenkinsci.plugins.workflow.steps.FlowInterruptedException
 
 def checkDeploymentCompletion(){
-    sh('kubectl rollout status -n demo deployment/cicd-demo-api')
+    sh('kubectl rollout status -n demo deployment/cicd-demo')
 }
 
 node {
@@ -31,7 +31,7 @@ node {
                     sh('kubectl apply -f deploy/')
                     checkDeploymentCompletion()
                 } else if(params.DEPLOY_ACTION == 'rollout restart') {
-                    sh('kubectl rollout restart -n demo deployment/cicd-demo-api')
+                    sh('kubectl rollout restart -n demo deployment/cicd-demo')
                     checkDeploymentCompletion()
                 }
                 echo "배포 종료"
