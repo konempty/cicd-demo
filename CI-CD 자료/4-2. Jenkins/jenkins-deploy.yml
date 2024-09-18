@@ -16,7 +16,7 @@ spec:
       serviceAccountName: jenkins
       containers:
       - name: jenkins
-        image: ghcr.io/beyond-imagination/jenkins-docker-image:arm64
+        image: ghcr.io/beyond-imagination/jenkins-docker-image:latest
         securityContext:
           privileged: true
         ports:
