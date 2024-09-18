@@ -1,0 +1,23 @@
+# 젠킨스 실습에 사용할 네임스페이스 정의
+kubectl create ns jenkins
+
+# 데모 를 배포할 네임스페이스
+kubectl create ns demo
+
+# 젠킨스 Deployemnt를 정의
+kubectl apply -f "4-2. Jenkins/jenkins-deploy.yml"
+
+# 젠킨스 Service를 정의
+kubectl apply -f "4-2. Jenkins/jenkins-service.yml"
+
+# 젠킨스 ServiceAccount를 정의
+kubectl apply -f "4-2. Jenkins/jenkins-serviceAccount.yml"
+
+# 젠킨스 Ingress를 정의
+kubectl apply -f "4-2. Jenkins/jenkins-ingress.yml"
+
+# 젠킨스 Pod를 확인
+kubectl get pods -njenkins
+
+kubectl logs {위에서 확인한 파드 풀네임} -njenkins
+

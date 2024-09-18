@@ -1,0 +1,16 @@
+# 우분투 유저라면
+sudo apt install snapd 
+
+# 센토스 유저라면
+sudo yum install snapd
+sudo systemctl enable --now snapd.socket
+sudo ln -s /var/lib/snapd/snap /snap
+
+# MicroK8S 설치
+sudo snap install microk8s --classic (classic앞에 대시 두개)
+
+# 다른 운영체제는 아래 링크를 확인
+https://microk8s.io/docs/install-alternatives
+
+# 혹시 인스턴스를 2개이상을 확보해서 왔다면
+microk8s add-node --token-ttl 3600

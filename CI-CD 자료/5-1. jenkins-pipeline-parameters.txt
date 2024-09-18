@@ -1,0 +1,6 @@
+# 파라메터명
+DEPLOY_ACTION
+
+# 파라메터 선택지
+rollout restart
+apply manifest

@@ -1,0 +1,8 @@
+# 강의에 사용할 레포지토리
+https://github.com/Beyond-Imagination/cicd-demo
+
+# Docker hub URL
+https://hub.docker.com/
+
+# kubectl 설치 URL
+https://kubernetes.io/ko/docs/tasks/tools/

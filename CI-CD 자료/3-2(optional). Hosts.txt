@@ -1,0 +1,31 @@
+# 본인이 가진 도메인이 있다면 건너뛰어도 됨
+# Windows의 경우
+C:\Windows\System32\drivers\etc\hosts
+
+# 리눅스, 유닉스 계열의 경우
+/etc/hosts
+
+# K8S 노드 IP 확인법
+# Docker Desktop의 경우
+ping kubernetes.docker.internal
+
+# Orbstack의 경우
+ping k8s.orb.local
+
+# microK8S를 사용하는경우
+노드 자체의 IP 혹은 로컬이라면 localhost
+
+{확인한 노드의 IP} jenkins.k8s.local
+{확인한 노드의 IP} demo.k8s.local
+
+# 추가한 hosts 적용법
+# 윈도우라면
+ipconfig /flushdns
+
+# 리눅스라면
+sudo systemctl restart networking
+혹은 
+sudo service network-manager restart
+
+# Macos라면 
+dscacheutil -flushcache

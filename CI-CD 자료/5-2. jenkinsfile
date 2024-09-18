@@ -1,0 +1,43 @@
+import org.jenkinsci.plugins.workflow.steps.FlowInterruptedException
+
+def checkDeploymentCompletion(){
+    sh('kubectl rollout status -n demo deployment/cicd-demo-api')
+}
+
+node {
+    cause = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
+    dir('tmp'){
+        try{
+            stage ('Clone') {
+                echo "깃 클론 시작"
+                git branch: "main", url:'https://github.com/{여기에 본인의 github id를 넣으세요}/cicd-demo.git'
+                echo "깃 클론 끝"
+            }
+            stage('Build image') {
+                echo "빌드 시작"
+                app = docker.build("{여기에 본인의 Docker hub id를 넣으세요}/cicd-demo")
+                echo "빌드 끝"
+            }
+            stage('Push image') {
+                echo "도커 이미지 푸시 시작"
+                docker.withRegistry('https://registry.hub.docker.com', 'DockerSecret') {
+                    app.push("latest")
+                }
+                echo "도커 이미지 푸시 끝"
+            }
+            stage ('Deploy'){
+                echo "배포 시작"
+                if(params.DEPLOY_ACTION == 'apply manifest') {
+                    sh('kubectl apply -f deploy/')
+                    checkDeploymentCompletion()
+                } else if(params.DEPLOY_ACTION == 'rollout restart') {
+                    sh('kubectl rollout restart -n demo deployment/cicd-demo-api')
+                    checkDeploymentCompletion()
+                }
+                echo "배포 종료"
+            }
+        } finally {
+            deleteDir()
+        }
+    }
+}
