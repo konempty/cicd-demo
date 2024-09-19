@@ -7,6 +7,9 @@ https://hub.docker.com/
 # kubectl 설치 URL
 https://kubernetes.io/ko/docs/tasks/tools/
 
+# microk8s 사용시 kubectl 설정법
+sudo snap alias microk8s.kubectl kubectl
+
 # kubectl이 클러스터를 제대로 찾지못하는 경우
 kubectl config get-contexts
 kubectl config use-context {클러스터명}
