@@ -20,7 +20,7 @@ spec:
         app: cicd-demo
     spec:
       containers:
-        - image: {여기에 본인의 docker hub id를 적으세요}/cicd-demo:latest
+        - image: konempty/cicd-demo:latest
           name: cicd-demo
           resources:
             limits:
